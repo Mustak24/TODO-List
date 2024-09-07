@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO NOTES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hover01{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            transition: all .4s;
+            overflow: hidden;
+            border: 3px solid black;
+
+            &:hover{color: white;}
+
+            &::after{
+                content: '';
+                position: absolute;
+                width: 100%; height: 100%;
+                transform: translateY(100%);
+                border-radius: 50%;
+                background-color: black;
+                z-index: -1;
+                transition: all .3s;
+            }
+
+            &:hover::after{
+                border-radius: 0%;
+                transform: translateY(0%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-green-300 px-4 overflow-x-hidden">
+    <main class="flex flex-col items-center">
+        <form action="/addnote" method="post" class="w-screen h-fit flex flex-col items-center py-10 gap-4 bg-green-200">
+            <h1 class="font-bold text-xl">Fill And Add Notes</h1>
+            <input 
+                type="text" 
+                name="name" 
+                placeholder="Enter your title" 
+                class="w-1/2 h-10 rounded-full px-4 border-black border-[3px] outline-0 duration-200
+                bg-transparent placeholder:text-gray-700 hover:border-white focus:border-white" required
+            >
+            <textarea required 
+                name="des" 
+                placeholder="Enter your disrepsion" 
+                class="w-1/2 h-30 resize-none rounded-xl px-4 py-1.5 
+                border-black border-[3px] bg-transparent placeholder:text-gray-700 outline-0 hover:border-white focus:border-white" 
+                style="scrollbar-width: none;" 
+            ></textarea>
+            <button class="hover01 w-1/2 h-10 rounded-full">Add Note</button>
+        </form><br>
+        <div class="flex flex-wrap gap-4 justify-center gap-4">
+            <% notes.forEach((e)=>{%>
+                <div 
+                    class="border-4 rounded-xl w-[250px] h-[150px] box-border overflow-hidden flex flex-col justify-between 
+                    bg-sky-100 hover:border-white duration-300 border-green-500"
+                    onclick="(()=>window.location.href = 'note<%= e.name %>')()"
+                >
+                    <details open>
+                        <summary class="border-b-2 px-4 font-bold"><%= e.name %></summary>
+                        <%if(e.des.length < 40){%>
+                        <p class="px-4"><%= e.des %></p>
+                        <%} else{%>
+                            <p class="px-4"><%= e.des.slice(0, 40) %> <a class="text-sky-700" href=<%= e.name %>>more..</a></p>
+                        <%}%>
+                    </details>
+                    <div class="mx-4 my-2">
+                        <a href="edit/<%= e.name %>" class="text-sky-700">edit</a>
+                    </div>
+                </div>
+            <%})%>
+        </div>
+    </main>
+</body>
+</html>

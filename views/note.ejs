@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOTE : <%= note.name %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-green-300 overflow-x-hidden">
+    <header
+      class="flex justify-center relative w-screen h-20 bg-green-500 text-[40px]"
+    >
+      <h1 class="font-bold">TODO LIST</h1>
+      <a
+        href="/"
+        class="absolute left-10 bottom-1 text-[15px] font-bold text-blue-500 before:content-['<-'] hover:text-blue-800"
+      >
+        Go Back</a
+      >
+    </header>
+    <br />
+    <main class="flex flex-col">
+      <div
+        class="flex items-center bg-green-300 w-full h-20 font-bold px-10 text-[35px] underline"
+      >
+        <%= note.name %>
+      </div>
+      <pre class="p-10 text-[25px]"><%= note.des %></pre>
+    </main>
+  </body>
+</html>
